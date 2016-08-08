@@ -3,13 +3,13 @@ FROM alpine:3.4
 
 # Set up the environment for building the application.
 ENV GOROOT=/usr/lib/go \
-    GOPATH=/opt/go-skyliner \
+    GOPATH=/opt/hello-go \
     PATH=$PATH:$GOROOT/bin:$GOPATH
 
 # Establish a working directory and copy our application
 # files into it.
-WORKDIR /opt/go-skyliner
-ADD . /opt/go-skyliner
+WORKDIR /opt/hello-go
+ADD . /opt/hello-go
 
 # Build your application.
 RUN \
@@ -23,11 +23,11 @@ RUN \
 	apk del go
 
 # Run the application.
-ENTRYPOINT ["/opt/go-skyliner/hello"]
+ENTRYPOINT ["/opt/hello-go/hello"]
 
 # You can test this Docker image locally by running:
 #
-#    $ docker build -t go-skyliner .
-#    $ docker run --rm -it --expose 8081 -p 8081:8081 -e PORT=8081 go-skyliner
+#    $ docker build -t hello-go .
+#    $ docker run --rm -it --expose 8081 -p 8081:8081 -e PORT=8081 hello-go
 #
 # and then visiting http://localhost:8081/ in your browser.
