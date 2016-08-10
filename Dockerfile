@@ -15,6 +15,8 @@ ADD . /opt/hello-go
 RUN \
 	# Upgrade old packages.
 	apk --update upgrade && \
+	# Ensure we have ca-certs installed.
+	apk add --no-cache ca-certificates && \
 	# Install go for building.
 	apk add -U go && \
 	# Compile our app
