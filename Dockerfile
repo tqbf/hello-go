@@ -2,7 +2,7 @@
 FROM alpine:3.4
 
 # Set up the environment for building the application.
-ENV GOROOT=/usr/lib/go \
+ENV GOROOT=/usr/local/go \
     GOPATH=/opt/hello-go \
     PATH=$PATH:$GOROOT/bin:$GOPATH
 
@@ -11,21 +11,15 @@ ENV GOROOT=/usr/lib/go \
 WORKDIR /opt/hello-go
 ADD . /opt/hello-go
 
-# Build your application.
+# Set up your application.
 RUN \
 	# Upgrade old packages.
 	apk --update upgrade && \
 	# Ensure we have ca-certs installed.
-	apk add --no-cache ca-certificates && \
-	# Install go for building.
-	apk add -U go && \
-	# Compile our app
-	go build hello.go && \
-	# Delete go after build.
-	apk del go
+	apk add --no-cache ca-certificates 
 
 # Run the application.
-ENTRYPOINT ["/opt/hello-go/hello"]
+ENTRYPOINT ["/opt/hello-go/hello-go"]
 
 # You can test this Docker image locally by running:
 #

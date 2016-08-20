@@ -5,11 +5,16 @@ IFS=$'\n\t'
 # Derive the application name from the current directory
 APP=${PWD##*/}
 
+GO_APP_PATH=${PWD#*src/}
+
 DOCKER_UPLOAD_TOKEN="${1-}"
 if [ -z $DOCKER_UPLOAD_TOKEN ]; then
     echo "./upload.sh <docker upload token>"
     exit -1
 fi
+
+# Build the Go app itself
+env GOOS=linux GOARCH=amd64 go build ${GO_APP_PATH}
 
 # Build the Docker image
 docker build -t $APP .
